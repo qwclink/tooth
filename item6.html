@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Стоматология – Подробное описание услуги</title>
+  <style>
+    /* Reset */
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background: #f0f8ff;
+      color: #03045e;
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    a {
+      color: #0077b6;
+      text-decoration: none;
+    }
+    a:hover,
+    a:focus {
+      text-decoration: underline;
+      outline: none;
+    }
+    button {
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    /* Header */
+    .header {
+      background-color: #0077b6;
+      color: white;
+      padding: 1rem 1rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .header__container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .header__logo {
+      font-weight: 700;
+      font-size: 1.5rem;
+      user-select: none;
+    }
+    .header__nav {
+      display: flex;
+      gap: 1rem;
+    }
+    .header__link {
+      color: white;
+      padding: 0.3rem 0.5rem;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+    }
+    .header__link:hover,
+    .header__link:focus {
+      background-color: #023e8a;
+      outline: none;
+    }
+
+    /* Main */
+    .main {
+      flex: 1 0 auto;
+      max-width: 1000px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    /* Image section */
+    .product__image-container {
+      flex: 1 1 400px;
+      max-width: 450px;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .product__image-container img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+    .product__image-container img:hover {
+      transform: scale(1.05);
+    }
+
+    /* Content section */
+    .product__content {
+      flex: 1 1 500px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .product__title {
+      font-size: 2rem;
+      margin: 0 0 0.5rem 0;
+      color: #0077b6;
+    }
+    .product__subtitle {
+      font-size: 1.1rem;
+      color: #023e8a;
+      margin-bottom: 1rem;
+      font-weight: 600;
+    }
+    .product__price {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #00d0ad;
+      margin-bottom: 1.5rem;
+    }
+    .product__description {
+      font-size: 1rem;
+      color: #03045e;
+      margin-bottom: 1.5rem;
+      max-height: 300px;
+      overflow-y: auto;
+      padding-right: 0.5rem;
+    }
+    .product__features {
+      margin-bottom: 1.5rem;
+    }
+    .product__features h3 {
+      font-size: 1.25rem;
+      color: #0077b6;
+      margin-bottom: 0.5rem;
+    }
+    .product__features ul {
+      list-style: disc inside;
+      color: #03045e;
+      font-size: 1rem;
+      margin: 0;
+      padding-left: 1rem;
+    }
+
+    /* Add to cart button */
+    .product__actions {
+      margin-top: auto;
+    }
+    .product__btn {
+      background-color: #0077b6;
+      color: white;
+      border: none;
+      padding: 1rem 2rem;
+      font-size: 1.25rem;
+      font-weight: 700;
+      border-radius: 8px;
+      transition: background-color 0.3s ease;
+      user-select: none;
+      width: 100%;
+      max-width: 300px;
+    }
+    .product__btn:hover,
+    .product__btn:focus {
+      background-color: #023e8a;
+      outline: none;
+    }
+
+    /* Back link */
+    .back-link {
+      display: inline-block;
+      margin: 1rem auto 2rem auto;
+      color: #0077b6;
+      font-weight: 600;
+      text-align: center;
+      user-select: none;
+    }
+    .back-link:hover,
+    .back-link:focus {
+      text-decoration: underline;
+      outline: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .main {
+        flex-direction: column;
+        max-width: 90%;
+      }
+      .product__image-container,
+      .product__content {
+        max-width: 100%;
+        flex: 1 1 100%;
+      }
+      .product__description {
+        max-height: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header" role="banner">
+    <div class="header__container">
+      <div class="header__logo" tabindex="0">
+        <img src="assets/img/Logo-white.png" alt="">
+      </div>
+      <nav class="header__nav" role="navigation" aria-label="Основное меню">
+        <a href="catalog.html" class="header__link">Каталог услуг</a>
+        <a href="basket.html" class="header__link">Корзина</a>
+        <a href="register.html" class="header__link">Авторизация</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main" role="main" aria-labelledby="product-title">
+    <section class="product__image-container" aria-label="Изображение услуги Отбеливание зубов">
+      <img src="assets/img/1.png" alt="Отбеливание зубов – улыбка пациента" />
+    </section>
+
+    <section class="product__content">
+      <h1 class="product__title" id="product-title">Ортодонтия</h1>
+      <p class="product__subtitle">Профессиональная ортодонтия с гарантией результата</p>
+      <p class="product__price">20 000 ₽</p>
+
+      <div class="product__description" tabindex="0">
+        <p>Отбеливание зубов – это современная косметическая процедура, позволяющая сделать вашу улыбку ярче и привлекательнее. Мы используем только безопасные и эффективные методы, которые не повреждают эмаль и обеспечивают стойкий результат.</p>
+        <p>Процедура проводится опытными специалистами с применением профессиональных гелей и световых технологий. В среднем сеанс занимает около 60 минут и не требует длительного восстановления.</p>
+        <p>Рекомендуется проводить отбеливание не чаще одного раза в год, чтобы сохранить здоровье зубов и десен.</p>
+      </div>
+
+      <div class="product__features">
+        <h3>Преимущества процедуры:</h3>
+        <ul>
+          <li>Безопасность для эмали и десен</li>
+          <li>Длительный эффект до 1 года</li>
+          <li>Безболезненность и комфорт</li>
+          <li>Использование сертифицированных материалов</li>
+          <li>Индивидуальный подход к каждому пациенту</li>
+        </ul>
+      </div>
+
+      <div class="product__actions">
+        <button class="product__btn" id="add-to-cart-btn" aria-label="Добавить Отбеливание зубов в корзину">Добавить в корзину</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" role="contentinfo" style="background:#0077b6; color:white; padding:1rem; text-align:center; user-select:none;">
+    © 2025 Стоматология. Все права защищены.
+  </footer>
+
+  <script>
+    (function() {
+      const productId = 1; // ID услуги "Отбеливание зубов"
+      const productTitle = "Отбеливание зубов";
+
+      const addToCartBtn = document.getElementById('add-to-cart-btn');
+
+      function loadCart() {
+        try {
+          return JSON.parse(localStorage.getItem('dentalCart')) || [];
+        } catch {
+          return [];
+        }
+      }
+
+      function saveCart(cart) {
+        localStorage.setItem('dentalCart', JSON.stringify(cart));
+      }
+
+      function addToCart(id) {
+        let cart = loadCart();
+        const index = cart.findIndex(item => item.id === id);
+        if (index >= 0) {
+          cart[index].quantity += 1;
+        } else {
+          cart.push({ id: id, quantity: 1 });
+        }
+        saveCart(cart);
+        alert(`Услуга "${productTitle}" добавлена в корзину.`);
+      }
+
+      addToCartBtn.addEventListener('click', () => addToCart(productId));
+    })();
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,1418 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Стоматология – Главная</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: #f9fafb;
+        color: #1e293b;
+        scroll-behavior: smooth;
+        min-height: 100vh;
+        overflow-x: hidden;
+        transition: background-color 0.3s, color 0.3s;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      a:hover,
+      a:focus {
+        color: #0284c7;
+        outline: none;
+        text-decoration: underline;
+      }
+
+      button {
+        font-family: inherit;
+        cursor: pointer;
+        border: none;
+        background: none;
+      }
+
+      /* Dark theme styles */
+      body.dark {
+        background: #121212;
+        color: #e0e0e0;
+      }
+
+      body.dark a {
+        color: #90caf9;
+      }
+
+      body.dark a:hover,
+      body.dark a:focus {
+        color: #64b5f6;
+      }
+
+      body.dark .header {
+        background: rgba(18, 18, 18, 0.95);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.8);
+      }
+
+      body.dark .header__logo {
+        color: #90caf9;
+      }
+
+      body.dark .header__link,
+      body.dark .header__dropdown-btn {
+        color: #cfd8dc;
+      }
+
+      body.dark .header__link:hover,
+      body.dark .header__link:focus,
+      body.dark .header__dropdown-btn:hover,
+      body.dark .header__dropdown-btn:focus {
+        background-color: #64b5f6;
+        color: #121212;
+      }
+
+      body.dark .dropdown__menu {
+        background: #1e1e1e;
+        box-shadow: 0 8px 24px rgb(0 0 0 / 0.9);
+      }
+
+      body.dark .dropdown__item {
+        color: #cfd8dc;
+      }
+
+      body.dark .dropdown__item:hover,
+      body.dark .dropdown__item:focus {
+        background-color: #64b5f6;
+        color: #121212;
+      }
+
+      body.dark .hero__content {
+        background: rgba(0, 0, 0, 0.7);
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.9);
+      }
+
+      body.dark .service-card {
+        background: #1e1e1e;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.8);
+      }
+
+      body.dark .service-card__image {
+        background-color: #263238;
+      }
+
+      body.dark .service-card__title {
+        color: #90caf9;
+      }
+
+      body.dark .service-card__desc {
+        color: #b0bec5;
+      }
+
+      body.dark .service-card__btn {
+        background-color: #64b5f6;
+        color: #121212;
+      }
+
+      body.dark .service-card__btn:hover,
+      body.dark .service-card__btn:focus {
+        background-color: #90caf9;
+        color: #121212;
+      }
+
+      body.dark .gallery__item {
+        background-color: #263238;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.8);
+      }
+
+      body.dark .doctor-card {
+        background: #1e1e1e;
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.8);
+        color: #cfd8dc;
+      }
+
+      body.dark .doctor-card__photo {
+        background-color: #263238;
+      }
+
+      body.dark .doctor-card__name {
+        color: #90caf9;
+      }
+
+      body.dark .doctor-card__spec {
+        color: #b0bec5;
+      }
+
+      body.dark .doctors__btn {
+        background-color: #64b5f6;
+        color: #121212;
+      }
+
+      body.dark .doctors__btn:hover,
+      body.dark .doctors__btn:focus {
+        background-color: #90caf9;
+        color: #121212;
+      }
+
+      body.dark .calculator {
+        background: #1e1e1e;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.8);
+        color: #cfd8dc;
+      }
+
+      body.dark .calculator__title {
+        color: #90caf9;
+      }
+
+      body.dark .calculator__label {
+        color: #b0bec5;
+      }
+
+      body.dark .calculator__select {
+        background: #263238;
+        color: #cfd8dc;
+        border-color: #64b5f6;
+      }
+
+      body.dark .calculator__select:focus {
+        box-shadow: 0 0 6px #90caf9;
+      }
+
+      body.dark .calculator__result {
+        color: #f48fb1;
+      }
+
+      body.dark footer {
+        background: #121212;
+        color: #90caf9;
+      }
+
+      /* Header */
+      .header {
+        position: fixed;
+        width: 100%;
+        top: 0;
+        left: 0;
+        background: rgba(255 255 255 / 0.95);
+        box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
+        z-index: 1000;
+        backdrop-filter: saturate(180%) blur(20px);
+        transition: background-color 0.3s ease;
+      }
+
+      .header__container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 1rem 1.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .header__logo {
+        font-weight: 900;
+        font-size: 1.8rem;
+        color: #0284c7;
+        user-select: none;
+        letter-spacing: 2px;
+      }
+      .header__logo img {
+        max-width: 100px;
+      }
+
+      .header__nav {
+        display: flex;
+        gap: 1.5rem;
+        align-items: center;
+        position: relative;
+      }
+
+      .header__link,
+      .header__dropdown-btn {
+        font-weight: 600;
+        font-size: 1rem;
+        color: #334155;
+        padding: 0.3rem 0.5rem;
+        border-radius: 6px;
+        transition: background-color 0.3s ease, color 0.3s ease;
+        background: none;
+        border: none;
+        cursor: pointer;
+        user-select: none;
+      }
+
+      .header__link:hover,
+      .header__link:focus,
+      .header__dropdown-btn:hover,
+      .header__dropdown-btn:focus {
+        background-color: #0284c7;
+        color: white;
+        outline: none;
+      }
+
+      /* Dropdown */
+      .dropdown {
+        position: relative;
+      }
+
+      .dropdown__menu {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 8px 24px rgb(0 0 0 / 0.15);
+        margin-top: 0.5rem;
+        min-width: 180px;
+        display: none;
+        flex-direction: column;
+        z-index: 1001;
+      }
+
+      .dropdown__menu.show {
+        display: flex;
+      }
+
+      .dropdown__item {
+        padding: 0.5rem 1rem;
+        color: #334155;
+        font-weight: 600;
+        cursor: pointer;
+        user-select: none;
+        transition: background-color 0.3s ease;
+      }
+
+      .dropdown__item:hover,
+      .dropdown__item:focus {
+        background-color: #0284c7;
+        color: white;
+        outline: none;
+      }
+
+      /* Burger menu for mobile */
+      .header__burger {
+        display: none;
+        flex-direction: column;
+        justify-content: space-around;
+        width: 24px;
+        height: 20px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        user-select: none;
+      }
+
+      .header__burger span {
+        width: 100%;
+        height: 3px;
+        background-color: #0284c7;
+        border-radius: 2px;
+        transition: all 0.3s ease;
+      }
+      .header__burger.active span:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+      }
+
+      .header__burger.active span:nth-child(2) {
+        opacity: 0;
+      }
+
+      .header__burger.active span:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+      }
+
+      .header__burger span {
+        transition: all 0.3s ease;
+      }
+
+      /* Mobile nav */
+      .header__nav--mobile {
+        display: none;
+        flex-direction: column;
+        background: white;
+        position: fixed;
+        top: 60px;
+        right: 0;
+        width: 220px;
+        padding: 1rem;
+        box-shadow: -2px 0 8px rgb(0 0 0 / 0.1);
+        border-radius: 0 0 0 12px;
+        z-index: 1001;
+        max-height: calc(100vh - 60px);
+        overflow-y: auto;
+      }
+
+      .header__nav--mobile[hidden] {
+        display: none;
+      }
+
+      .header__nav--mobile:not([hidden]) {
+        display: flex;
+      }
+
+      .header__nav--mobile.show {
+        display: flex;
+      }
+
+      .header__nav--mobile a,
+      .header__nav--mobile button {
+        padding: 0.75rem 0;
+        font-size: 1.1rem;
+        border-radius: 6px;
+        text-align: left;
+        width: 100%;
+        background: none;
+        border: none;
+        color: #334155;
+        cursor: pointer;
+        user-select: none;
+      }
+
+      .header__nav--mobile a:hover,
+      .header__nav--mobile a:focus,
+      .header__nav--mobile button:hover,
+      .header__nav--mobile button:focus {
+        background-color: #0284c7;
+        color: white;
+        outline: none;
+      }
+
+      .header__nav--mobile .dropdown__menu {
+        position: static;
+        box-shadow: none;
+        margin: 0.5rem 0 0 0;
+        border-radius: 0;
+        display: none;
+        flex-direction: column;
+      }
+
+      .header__nav--mobile .dropdown__menu.show {
+        display: flex;
+      }
+
+      @media (max-width: 768px) {
+        .header__nav {
+          display: none;
+        }
+
+        .header__burger {
+          display: flex;
+        }
+      }
+
+      /* Hero Section */
+      .hero {
+        position: relative;
+        height: 90vh;
+        min-height: 500px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: white;
+        overflow: hidden;
+        margin-top: 60px;
+        /* header height */
+        transition: background-color 0.3s ease;
+      }
+
+      .hero__video {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        min-width: 100%;
+        min-height: 100%;
+        width: auto;
+        height: 100vh;
+        z-index: 1;
+        transform: translate(-50%, -50%);
+        object-fit: cover;
+        filter: brightness(0.5);
+        transition: filter 0.3s ease;
+      }
+
+      body.dark .hero__video {
+        filter: brightness(0.3);
+      }
+
+      .hero__content {
+        max-width: 900px;
+        padding: 1rem 2rem;
+        background: rgba(0, 0, 0, 0.4);
+        border-radius: 12px;
+        box-shadow: 0 8px 24px rgb(0 0 0 / 0.5);
+        transition: background 0.3s ease;
+        z-index: 1;
+      }
+
+      body.dark .hero__content {
+        background: rgba(0, 0, 0, 0.7);
+      }
+
+      .hero__title {
+        font-size: 3rem;
+        font-weight: 900;
+        margin-bottom: 1rem;
+        text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
+        letter-spacing: 2px;
+      }
+
+      .hero__subtitle {
+        font-size: 1.5rem;
+        font-weight: 500;
+        line-height: 1.4;
+        text-shadow: 0 1px 5px rgba(0, 0, 0, 0.6);
+      }
+
+      @media (max-width: 600px) {
+        .hero__title {
+          font-size: 2rem;
+        }
+
+        .hero__subtitle {
+          font-size: 1.1rem;
+        }
+      }
+
+      /* Main Content */
+      .main {
+        max-width: 1200px;
+        margin: 3rem auto 5rem;
+        padding: 0 1.5rem;
+      }
+
+      /* Services Section */
+      .services {
+        margin-bottom: 4rem;
+      }
+
+      .services__title {
+        font-size: 2.5rem;
+        font-weight: 900;
+        color: #0284c7;
+        text-align: center;
+        margin-bottom: 2rem;
+        letter-spacing: 1.5px;
+      }
+
+      .services__grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 2rem;
+      }
+
+      .service-card {
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 8px 20px rgb(0 0 0 / 0.1);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        cursor: pointer;
+      }
+
+      .service-card:hover,
+      .service-card:focus-within {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 30px rgb(0 0 0 / 0.15);
+        outline: none;
+      }
+
+      .service-card__image {
+        height: 180px;
+        border-bottom: 4px solid #0284c7;
+        position: relative;
+        overflow: hidden;
+      }
+      .service-card__image img {
+        width: 100%;
+      }
+
+      .service-card__content {
+        padding: 1rem 1.5rem 2rem;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .service-card__title {
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: #0369a1;
+        margin-bottom: 0.5rem;
+      }
+
+      .service-card__desc {
+        font-size: 1rem;
+        color: #475569;
+        flex-grow: 1;
+        margin-bottom: 1rem;
+      }
+
+      .service-card__btn {
+        align-self: flex-start;
+        background-color: #0284c7;
+        color: white;
+        padding: 0.6rem 1.2rem;
+        border-radius: 8px;
+        font-weight: 700;
+        font-size: 1rem;
+        transition: background-color 0.3s ease;
+        user-select: none;
+        border: none;
+        cursor: pointer;
+      }
+
+      .service-card__btn:hover,
+      .service-card__btn:focus {
+        background-color: #0369a1;
+        outline: none;
+      }
+
+      /* Photo Gallery Section */
+      .gallery {
+        margin-bottom: 4rem;
+        text-align: center;
+      }
+
+      .gallery__title {
+        font-size: 2.5rem;
+        font-weight: 900;
+        color: #0284c7;
+        margin-bottom: 2rem;
+        letter-spacing: 1.5px;
+      }
+
+      .gallery__grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 1.5rem;
+        max-width: 1000px;
+        margin: 0 auto;
+      }
+
+      .gallery__item {
+        background-color: #e0f2fe;
+        border-radius: 16px;
+        height: 150px;
+        position: relative;
+        overflow: hidden;
+        box-shadow: 0 6px 18px rgb(0 0 0 / 0.1);
+        cursor: pointer;
+        transition: transform 0.3s ease;
+      }
+      .gallery__item img {
+        width: 100%;
+        height: 100%;
+      }
+
+      .gallery__item:hover,
+      .gallery__item:focus {
+        transform: scale(1.05);
+        outline: none;
+      }
+
+      /* Doctors Slider Section */
+      .doctors {
+        margin-bottom: 4rem;
+        text-align: center;
+      }
+
+      .doctors__title {
+        font-size: 2.5rem;
+        font-weight: 900;
+        color: #0284c7;
+        margin-bottom: 2rem;
+        letter-spacing: 1.5px;
+      }
+
+      .doctors__slider-wrapper {
+        max-width: 960px;
+        margin: 0 auto;
+      }
+
+      .doctors__slider {
+        overflow: hidden;
+        position: relative;
+      }
+
+      .doctors__list {
+        display: flex;
+        gap: 1.5rem;
+        transition: transform 0.4s ease;
+        will-change: transform;
+      }
+
+      .doctor-card {
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 8px 20px rgb(0 0 0 / 0.1);
+        flex: 0 0 30%;
+        padding: 1rem;
+        text-align: center;
+        user-select: none;
+        cursor: default;
+        outline-offset: 3px;
+      }
+
+      .doctor-card:focus-within {
+        outline: 3px solid #0284c7;
+      }
+
+      .doctor-card__photo {
+        width: 100%;
+        height: 180px;
+        border-radius: 12px;
+        background-color: #e0f2fe;
+        margin-bottom: 1rem;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .doctor-card__photo img {
+        width: 100%;
+      }
+
+      .doctor-card__name {
+        font-weight: 700;
+        font-size: 1.2rem;
+        color: #0369a1;
+        margin-bottom: 0.3rem;
+      }
+
+      .doctor-card__spec {
+        font-style: italic;
+        color: #475569;
+        font-size: 1rem;
+      }
+
+      .doctors__buttons {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin-top: 1rem;
+      }
+
+      .doctors__btn {
+        background-color: #0284c7;
+        border: none;
+        color: white;
+        font-size: 2rem;
+        padding: 0.2rem 1rem;
+        border-radius: 12px;
+        cursor: pointer;
+        user-select: none;
+        transition: background-color 0.3s ease;
+      }
+
+      .doctors__btn:hover,
+      .doctors__btn:focus {
+        background-color: #0369a1;
+        outline: none;
+      }
+
+      .doctors__btn:disabled {
+        background-color: #94a3b8;
+        cursor: default;
+      }
+
+      /* Price Calculator Section */
+      .calculator {
+        max-width: 500px;
+        margin: 0 auto 5rem;
+        background: white;
+        border-radius: 16px;
+        box-shadow: 0 8px 24px rgb(0 0 0 / 0.1);
+        padding: 2rem 2.5rem;
+        text-align: center;
+      }
+
+      .calculator__title {
+        font-size: 2rem;
+        color: #0284c7;
+        font-weight: 900;
+        margin-bottom: 1.5rem;
+        letter-spacing: 1.5px;
+      }
+
+      .calculator__form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        margin-bottom: 1.5rem;
+      }
+
+      .calculator__label {
+        font-weight: 700;
+        color: #0369a1;
+        text-align: left;
+        margin-bottom: 0.3rem;
+        font-size: 1rem;
+      }
+
+      .calculator__select {
+        padding: 0.6rem 1rem;
+        font-size: 1rem;
+        border-radius: 8px;
+        border: 2px solid #0284c7;
+        color: #1e293b;
+        transition: border-color 0.3s ease;
+      }
+
+      .calculator__select:focus {
+        outline: none;
+        border-color: #0369a1;
+        box-shadow: 0 0 6px #90cdf4;
+      }
+
+      .calculator__result {
+        font-size: 1.5rem;
+        font-weight: 900;
+        color: #3700d0;
+        margin-top: 1rem;
+        letter-spacing: 1px;
+      }
+
+      /* Theme toggle */
+      .theme-toggle {
+        position: fixed;
+        bottom: 1.5rem;
+        right: 1.5rem;
+        background: #0284c7;
+        color: white;
+        border-radius: 50%;
+        width: 48px;
+        height: 48px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgb(0 0 0 / 0.3);
+        user-select: none;
+        transition: background-color 0.3s ease;
+        z-index: 1100;
+      }
+
+      .theme-toggle:hover,
+      .theme-toggle:focus {
+        background-color: #0369a1;
+        outline: none;
+      }
+
+      /* Responsive */
+      @media (max-width: 1024px) {
+        .doctors__list {
+          flex-wrap: nowrap;
+        }
+
+        .doctor-card {
+          flex: 0 0 40%;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .services__grid {
+          grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        }
+
+        .hero__title {
+          font-size: 2.2rem;
+        }
+
+        .hero__subtitle {
+          font-size: 1.1rem;
+        }
+
+        .doctor-card {
+          flex: 0 0 60%;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .services__grid {
+          grid-template-columns: 1fr;
+        }
+
+        .doctor-card {
+          flex: 0 0 80%;
+        }
+
+        .hero {
+          height: 60vh;
+        }
+
+        .hero__title {
+          font-size: 1.8rem;
+        }
+
+        .hero__subtitle {
+          font-size: 1rem;
+        }
+
+        .calculator {
+          padding: 1.5rem 1.5rem;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <header class="header" role="banner">
+      <div class="header__container">
+        <div class="header__logo" tabindex="0">
+          <img src="assets/img/Logo.png" alt="" />
+        </div>
+
+        <nav class="header__nav" role="navigation" aria-label="Основное меню">
+          <a href="catalog.html" class="header__link">Каталог услуг</a>
+          <div class="dropdown">
+            <button
+              class="header__dropdown-btn"
+              aria-haspopup="true"
+              aria-expanded="false"
+              aria-controls="dropdown-menu"
+            >
+              Вход ▾
+            </button>
+            <div
+              class="dropdown__menu"
+              id="dropdown-menu"
+              role="menu"
+              aria-label="Меню для пациентов"
+            >
+              <a
+                href="register.html"
+                class="dropdown__item"
+                role="menuitem"
+                tabindex="-1"
+                >Регистрация</a
+              >
+              <a
+                href="register.html"
+                class="dropdown__item"
+                role="menuitem"
+                tabindex="-1"
+                >Авторизация</a
+              >
+              <a
+                href="account.html"
+                class="dropdown__item"
+                role="menuitem"
+                tabindex="-1"
+                >Личный кабинет</a
+              >
+              <a
+              href="admin.html"
+              class="dropdown__item"
+              role="menuitem"
+              tabindex="-1"
+              >Админ-панель</a
+            >
+            </div>
+          </div>
+          <a href="basket.html" class="header__link">Корзина</a>
+        </nav>
+
+        <button
+          class="header__burger"
+          aria-label="Открыть меню"
+          aria-expanded="false"
+          aria-controls="mobile-menu"
+        >
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+
+      <nav
+        id="mobile-menu"
+        class="header__nav--mobile"
+        aria-label="Мобильное меню"
+        hidden
+      >
+        <a href="/services">Каталог услуг</a>
+        <button
+          aria-haspopup="true"
+          aria-expanded="false"
+          aria-controls="mobile-dropdown-menu"
+        >
+          Пациентам ▾
+        </button>
+        <div
+          class="dropdown__menu"
+          id="mobile-dropdown-menu"
+          role="menu"
+          aria-label="Меню для пациентов"
+        >
+          <a href="/registration" role="menuitem" tabindex="-1">Регистрация</a>
+          <a href="/login" role="menuitem" tabindex="-1">Авторизация</a>
+          <a href="/personal-cabinet" role="menuitem" tabindex="-1"
+            >Личный кабинет</a
+          >
+        </div>
+        <a href="/cart">Корзина</a>
+      </nav>
+    </header>
+
+    <section
+      class="hero"
+      role="banner"
+      aria-label="Главный баннер с видео и слоганом"
+    >
+      <video class="hero__video" autoplay muted loop playsinline>
+        <!-- Замените src на ваш видеофайл -->
+        <source src="assets/img/bg.mp4" type="video/mp4" />
+        Ваш браузер не поддерживает видео.
+      </video>
+      <div class="hero__content">
+        <h1 class="hero__title">
+          Профессиональное лечение и комфорт — лучшая стоматология в городе
+        </h1>
+      </div>
+    </section>
+
+    <main class="main" role="main">
+      <!-- Services Section -->
+      <section class="services" aria-labelledby="services-title">
+        <h2 class="services__title" id="services-title">Горячие предложения</h2>
+        <div class="services__grid">
+          <article
+            class="service-card"
+            tabindex="0"
+            role="button"
+            aria-label="Отбеливание зубов. Подробнее"
+          >
+            <div class="service-card__image" aria-hidden="true">
+              <img src="assets/img/1.png" alt="" />
+            </div>
+            <div class="service-card__content">
+              <h3 class="service-card__title">Отбеливание зубов</h3>
+              <p class="service-card__desc">
+                Профессиональное отбеливание с гарантией результата и
+                безопасными методами.
+              </p>
+              <a
+                href="item1.html"
+                class="service-card__btn"
+                aria-label="Подробнее об отбеливании зубов"
+              >
+                Подробнее
+              </a>
+            </div>
+          </article>
+
+          <article
+            class="service-card"
+            tabindex="0"
+            role="button"
+            aria-label="Имплантация. Подробнее"
+          >
+            <div class="service-card__image" aria-hidden="true">
+              <img src="assets/img/2.png" alt="" />
+            </div>
+            <div class="service-card__content">
+              <h3 class="service-card__title">Имплантация</h3>
+              <p class="service-card__desc">
+                Современные импланты с пожизненной гарантией и высоким
+                качеством.
+              </p>
+              <a
+                href="item2.html"
+                class="service-card__btn"
+                aria-label="Подробнее об имплантации"
+              >
+                Подробнее
+              </a>
+            </div>
+          </article>
+
+          <article
+            class="service-card"
+            tabindex="0"
+            role="button"
+            aria-label="Чистка зубов. Подробнее"
+          >
+            <div class="service-card__image" aria-hidden="true">
+              <img src="assets/img/3.png" alt="" />
+            </div>
+            <div class="service-card__content">
+              <h3 class="service-card__title">Чистка зубов</h3>
+              <p class="service-card__desc">
+                Глубокая профессиональная чистка и профилактика заболеваний
+                полости рта.
+              </p>
+              <a
+                href="item3.html"
+                class="service-card__btn"
+                aria-label="Подробнее о чистке зубов"
+              >
+                Подробнее
+              </a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- Photo Gallery -->
+      <section class="gallery" aria-labelledby="gallery-title">
+        <h2 class="gallery__title" id="gallery-title">
+          Современное оборудование
+        </h2>
+        <div class="gallery__grid" role="list">
+          <div
+            class="gallery__item"
+            role="listitem"
+            tabindex="0"
+            aria-label="Фото клиники 1"
+          >
+            <img src="assets/img/4.webp" alt="" />
+          </div>
+          <div
+            class="gallery__item"
+            role="listitem"
+            tabindex="0"
+            aria-label="Фото клиники 2"
+          >
+            <img src="assets/img/5.jpg" alt="" />
+          </div>
+          <div
+            class="gallery__item"
+            role="listitem"
+            tabindex="0"
+            aria-label="Фото клиники 3"
+          >
+            <img src="assets/img/6.webp" alt="" />
+          </div>
+          <div
+            class="gallery__item"
+            role="listitem"
+            tabindex="0"
+            aria-label="Фото клиники 4"
+          >
+            <img src="assets/img/7.jpg" alt="" />
+          </div>
+        </div>
+      </section>
+
+      <!-- Doctors Slider -->
+      <section class="doctors" aria-labelledby="doctors-title">
+        <h2 class="doctors__title" id="doctors-title">Наши врачи</h2>
+        <div class="doctors__slider-wrapper">
+          <div class="doctors__slider" aria-live="polite">
+            <div class="doctors__list" tabindex="0" aria-label="Список врачей">
+              <article
+                class="doctor-card"
+                tabindex="0"
+                aria-label="Врач Иван Иванов, терапевт"
+              >
+                <div class="doctor-card__photo" aria-hidden="true">
+                  <img src="assets/img/9.png" alt="" />
+                </div>
+                <h3 class="doctor-card__name">Иван Иванов</h3>
+                <p class="doctor-card__spec">Терапевт</p>
+              </article>
+              <article
+                class="doctor-card"
+                tabindex="0"
+                aria-label="Врач Мария Петрова, ортодонт"
+              >
+                <div class="doctor-card__photo" aria-hidden="true">
+                  <img src="assets/img/8.png" alt="" />
+                </div>
+                <h3 class="doctor-card__name">Мария Петрова</h3>
+                <p class="doctor-card__spec">Ортодонт</p>
+              </article>
+              <article
+                class="doctor-card"
+                tabindex="0"
+                aria-label="Врач Алексей Смирнов, хирург"
+              >
+                <div class="doctor-card__photo" aria-hidden="true">
+                  <img src="assets/img/11.webp" alt="" />
+                </div>
+                <h3 class="doctor-card__name">Алексей Смирнов</h3>
+                <p class="doctor-card__spec">Хирург</p>
+              </article>
+              <article
+                class="doctor-card"
+                tabindex="0"
+                aria-label="Врач Елена Кузнецова, педиатр"
+              >
+                <div class="doctor-card__photo" aria-hidden="true">
+                  <img src="assets/img/10.png" alt="" />
+                </div>
+                <h3 class="doctor-card__name">Елена Кузнецова</h3>
+                <p class="doctor-card__spec">Педиатр</p>
+              </article>
+              <article
+                class="doctor-card"
+                tabindex="0"
+                aria-label="Врач Дмитрий Смирнов, ортопед"
+              >
+                <div class="doctor-card__photo" aria-hidden="true">
+                  <img src="assets/img/12.webp" alt="" />
+                </div>
+                <h3 class="doctor-card__name">Дмитрий Смирнов</h3>
+                <p class="doctor-card__spec">Ортопед</p>
+              </article>
+            </div>
+          </div>
+          <div class="doctors__buttons">
+            <button
+              class="doctors__btn doctors__btn--prev"
+              aria-label="Предыдущие врачи"
+            >
+              &#8592;
+            </button>
+            <button
+              class="doctors__btn doctors__btn--next"
+              aria-label="Следующие врачи"
+            >
+              &#8594;
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- Price Calculator -->
+      <section class="calculator" aria-labelledby="calculator-title">
+        <h2 class="calculator__title" id="calculator-title">
+          Калькулятор стоимости
+        </h2>
+        <form
+          class="calculator__form"
+          aria-describedby="calculator-result"
+          novalidate
+        >
+          <label for="calc-service" class="calculator__label">Услуга</label>
+          <select id="calc-service" class="calculator__select" required>
+            <option value="whitening">Отбеливание зубов</option>
+            <option value="implant">Имплантация</option>
+            <option value="cleaning">Чистка зубов</option>
+          </select>
+
+          <label for="calc-urgency" class="calculator__label">Срочность</label>
+          <select id="calc-urgency" class="calculator__select" required>
+            <option value="plan">Плановое</option>
+            <option value="express">Экспресс</option>
+          </select>
+
+          <label for="calc-age" class="calculator__label"
+            >Возраст пациента</label
+          >
+          <select id="calc-age" class="calculator__select" required>
+            <option value="adult">Взрослый</option>
+            <option value="child">Детский</option>
+          </select>
+        </form>
+        <div
+          id="calculator-result"
+          class="calculator__result"
+          aria-live="polite"
+          aria-atomic="true"
+        >
+          Итоговая стоимость: <strong>0 ₽</strong>
+        </div>
+      </section>
+    </main>
+
+    <footer role="contentinfo">
+      <p
+        style="
+          text-align: center;
+          padding: 1.5rem;
+          background: #0284c7;
+          color: white;
+          user-select: none;
+          margin-bottom: 0;
+        "
+      >
+        © 2025 Стоматология. Все права защищены.
+      </p>
+    </footer>
+
+    <!-- Theme toggle button -->
+    <button
+      class="theme-toggle"
+      aria-label="Переключить тему"
+      title="Переключить светлую/тёмную тему"
+      tabindex="0"
+    >
+      🌓
+    </button>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Бургер-меню
+        const burgerBtn = document.querySelector(".header__burger");
+        const mobileMenu = document.getElementById("mobile-menu");
+
+        if (burgerBtn && mobileMenu) {
+          burgerBtn.addEventListener("click", function (e) {
+            e.stopPropagation();
+            const isExpanded = this.getAttribute("aria-expanded") === "true";
+            this.setAttribute("aria-expanded", !isExpanded);
+
+            // Переключаем атрибут hidden
+            if (mobileMenu.hidden) {
+              mobileMenu.removeAttribute("hidden");
+            } else {
+              mobileMenu.hidden = true;
+            }
+
+            this.classList.toggle("active");
+          });
+
+          // Закрытие меню при клике вне его
+          document.addEventListener("click", function (e) {
+            if (
+              !mobileMenu.contains(e.target) &&
+              !burgerBtn.contains(e.target)
+            ) {
+              burgerBtn.setAttribute("aria-expanded", "false");
+              mobileMenu.hidden = true;
+              burgerBtn.classList.remove("active");
+            }
+          });
+        }
+
+        // ============ Десктопное выпадающее меню ============
+        const dropdownBtn = document.querySelector(".header__dropdown-btn");
+        const dropdownMenu = document.getElementById("dropdown-menu");
+
+        if (dropdownBtn && dropdownMenu) {
+          dropdownBtn.addEventListener("click", function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            const isExpanded = this.getAttribute("aria-expanded") === "true";
+            this.setAttribute("aria-expanded", !isExpanded);
+            dropdownMenu.classList.toggle("show");
+          });
+
+          // Закрытие при клике вне меню
+          document.addEventListener("click", function () {
+            dropdownBtn.setAttribute("aria-expanded", "false");
+            dropdownMenu.classList.remove("show");
+          });
+        }
+
+        // ============ Мобильное выпадающее меню ============
+        const mobileDropdownBtn = document.querySelector(
+          "#mobile-menu button[aria-haspopup]"
+        );
+        const mobileDropdownMenu = document.getElementById(
+          "mobile-dropdown-menu"
+        );
+
+        if (mobileDropdownBtn && mobileDropdownMenu) {
+          mobileDropdownBtn.addEventListener("click", function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            const isExpanded = this.getAttribute("aria-expanded") === "true";
+            this.setAttribute("aria-expanded", !isExpanded);
+            mobileDropdownMenu.classList.toggle("show");
+          });
+        }
+
+        // ============ Слайдер врачей ============
+        const doctorsList = document.querySelector(".doctors__list");
+        const prevBtn = document.querySelector(".doctors__btn--prev");
+        const nextBtn = document.querySelector(".doctors__btn--next");
+
+        if (doctorsList && prevBtn && nextBtn) {
+          const cards = Array.from(doctorsList.children);
+          const visibleCount = 1;
+          let currentIndex = 0;
+
+          function updateSlider() {
+            const cardStyle = getComputedStyle(cards[0]);
+            const cardWidth =
+              cards[0].offsetWidth + parseFloat(cardStyle.marginRight);
+            const maxIndex = cards.length - visibleCount;
+
+            if (currentIndex < 0) currentIndex = 0;
+            if (currentIndex > maxIndex) currentIndex = maxIndex;
+
+            doctorsList.style.transform = `translateX(${
+              -currentIndex * cardWidth
+            }px)`;
+            prevBtn.disabled = currentIndex === 0;
+            nextBtn.disabled = currentIndex === maxIndex;
+          }
+
+          prevBtn.addEventListener("click", () => {
+            currentIndex--;
+            updateSlider();
+          });
+
+          nextBtn.addEventListener("click", () => {
+            currentIndex++;
+            updateSlider();
+          });
+
+          window.addEventListener("resize", updateSlider);
+          updateSlider();
+        }
+
+        // ============ Калькулятор цен ============
+        const serviceSelect = document.getElementById("calc-service");
+        const urgencySelect = document.getElementById("calc-urgency");
+        const ageSelect = document.getElementById("calc-age");
+        const resultEl = document
+          .getElementById("calculator-result")
+          ?.querySelector("strong");
+
+        if (serviceSelect && urgencySelect && ageSelect && resultEl) {
+          const servicesPrice = {
+            whitening: 5000,
+            implant: 25000,
+            cleaning: 3000,
+          };
+
+          function calculatePrice() {
+            let base = servicesPrice[serviceSelect.value] || 0;
+            if (urgencySelect.value === "express") base *= 1.5;
+            if (ageSelect.value === "child") base *= 0.8;
+            resultEl.textContent = `${Math.round(base).toLocaleString(
+              "ru-RU"
+            )} ₽`;
+          }
+
+          serviceSelect.addEventListener("change", calculatePrice);
+          urgencySelect.addEventListener("change", calculatePrice);
+          ageSelect.addEventListener("change", calculatePrice);
+          calculatePrice();
+        }
+
+        // ============ Переключение темы ============
+        const themeToggleBtn = document.querySelector(".theme-toggle");
+
+        if (themeToggleBtn) {
+          // Загрузка темы из localStorage
+          if (localStorage.getItem("theme") === "dark") {
+            document.body.classList.add("dark");
+          }
+
+          themeToggleBtn.addEventListener("click", () => {
+            document.body.classList.toggle("dark");
+            localStorage.setItem(
+              "theme",
+              document.body.classList.contains("dark") ? "dark" : "light"
+            );
+          });
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Стоматология - Каталог услуг</title>
+    <style>
+      /* Reset */
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f0f8ff;
+        color: #03045e;
+        line-height: 1.5;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+      button {
+        cursor: pointer;
+        font-family: inherit;
+      }
+
+      /* Header */
+      .header {
+        background-color: #0077b6;
+        color: white;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      }
+      .header__container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 1rem 1rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .header__logo {
+        font-weight: 700;
+        font-size: 1.5rem;
+        user-select: none;
+      }
+      .header__nav {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+      }
+      .header__link {
+        color: white;
+        padding: 0.3rem 0.5rem;
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
+      }
+      .header__link:hover,
+      .header__link:focus {
+        background-color: #023e8a;
+        outline: none;
+      }
+
+      /* Cart icon */
+      .header__cart {
+        position: relative;
+        font-size: 1.25rem;
+        cursor: pointer;
+        user-select: none;
+      }
+      .header__cart-icon {
+        font-size: 1.5rem;
+        vertical-align: middle;
+      }
+      .header__cart-count {
+        position: absolute;
+        top: -6px;
+        right: -10px;
+        background-color: #d00000;
+        color: white;
+        font-size: 0.75rem;
+        font-weight: 700;
+        padding: 2px 6px;
+        border-radius: 50%;
+        min-width: 20px;
+        text-align: center;
+        user-select: none;
+      }
+
+      /* Main */
+      .main {
+        flex: 1 0 auto;
+        max-width: 1200px;
+        margin: 2rem auto;
+        padding: 0 1rem;
+      }
+
+      /* Catalog */
+      .catalog {
+        display: grid;
+        gap: 1.5rem;
+        grid-template-columns: repeat(4, 1fr);
+      }
+      .catalog__card {
+        background-color: #caf0f8;
+        border-radius: 8px;
+        padding: 1rem;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .catalog__title {
+        font-size: 1.25rem;
+        font-weight: 700;
+        margin: 0 0 0.5rem 0;
+        color: #023e8a;
+      }
+      .catalog__desc {
+        flex-grow: 1;
+        font-size: 1rem;
+        margin-bottom: 0.75rem;
+        color: #03045e;
+      }
+      .catalog__price {
+        font-weight: 700;
+        font-size: 1.1rem;
+        margin-bottom: 1rem;
+        color: #0077b6;
+      }
+      .catalog__btn {
+        background-color: #0077b6;
+        color: white;
+        border: none;
+        padding: 0.5rem;
+        border-radius: 6px;
+        font-weight: 700;
+        font-size: 1rem;
+        transition: background-color 0.3s ease;
+        user-select: none;
+      }
+      .catalog__btn-min {
+        margin-top: 10px;
+        background: none;
+        color: #023e8a;
+        border: 1px solid #023e8a;
+      }
+      .catalog__btn:hover,
+      .catalog__btn:focus {
+        background-color: #023e8a;
+        outline: none;
+      }
+      .catalog__btn-min:hover {
+        color: #fff;
+      }
+
+      /* Footer */
+      .footer {
+        flex-shrink: 0;
+        background-color: #0077b6;
+        color: white;
+        padding: 1rem;
+        text-align: center;
+        user-select: none;
+      }
+
+      /* Responsive */
+      @media (max-width: 1024px) {
+        .catalog {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+      @media (max-width: 768px) {
+        .catalog {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+      @media (max-width: 480px) {
+        .catalog {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="header" role="banner">
+      <div class="header__container">
+        <div class="header__logo" tabindex="0">
+          <img src="assets/img/Logo-white.png" alt="" />
+        </div>
+        <nav class="header__nav" role="navigation" aria-label="Основное меню">
+          <a href="basket.html" class="header__link">Корзина</a>
+          <a href="register.html" class="header__link">Авторизация</a>
+          <div
+            class="header__cart"
+            role="button"
+            tabindex="0"
+            aria-label="Корзина с товарами"
+          >
+            <span class="header__cart-icon" aria-hidden="true">&#128722;</span>
+            <span
+              class="header__cart-count"
+              id="cart-count"
+              aria-live="polite"
+              aria-atomic="true"
+              >0</span
+            >
+          </div>
+        </nav>
+      </div>
+    </header>
+
+    <main class="main" role="main" aria-labelledby="catalog-title">
+      <h1 id="catalog-title" class="visually-hidden">Каталог услуг</h1>
+      <section
+        class="catalog"
+        id="catalog"
+        aria-live="polite"
+        aria-relevant="additions removals"
+      >
+        <!-- Cards will be inserted here by JS -->
+      </section>
+    </main>
+
+    <footer class="footer" role="contentinfo">
+      <div class="footer__container">
+        <p>© 2025 Стоматология. Все права защищены.</p>
+      </div>
+    </footer>
+
+    <script>
+      (function () {
+        const services = [
+          {
+            id: 1,
+            title: "Отбеливание зубов",
+            description: "Профессиональное отбеливание с гарантией результата.",
+            price: 5000,
+          },
+          {
+            id: 2,
+            title: "Имплантация",
+            description: "Современные импланты с пожизненной гарантией.",
+            price: 25000,
+          },
+          {
+            id: 3,
+            title: "Чистка зубов",
+            description: "Глубокая чистка и профилактика заболеваний.",
+            price: 3000,
+          },
+          {
+            id: 4,
+            title: "Лечение кариеса",
+            description:
+              "Современное лечение с использованием безопасных материалов.",
+            price: 4000,
+          },
+          {
+            id: 5,
+            title: "Удаление зуба",
+            description: "Безболезненное удаление зубов любой сложности.",
+            price: 3500,
+          },
+          {
+            id: 6,
+            title: "Ортодонтия",
+            description: "Исправление прикуса с помощью брекетов и кап.",
+            price: 20000,
+          },
+          {
+            id: 7,
+            title: "Протезирование",
+            description: "Изготовление и установка качественных протезов.",
+            price: 15000,
+          },
+          {
+            id: 8,
+            title: "Профилактический осмотр",
+            description: "Регулярный осмотр и консультация стоматолога.",
+            price: 1000,
+          },
+          {
+            id: 9,
+            title: "Фторирование",
+            description:
+              "Защита зубов от кариеса с помощью фторсодержащих средств.",
+            price: 1200,
+          },
+          {
+            id: 10,
+            title: "Лечение десен",
+            description: "Профессиональное лечение заболеваний десен.",
+            price: 6000,
+          },
+        ];
+
+        const catalogEl = document.getElementById("catalog");
+        const cartCountEl = document.getElementById("cart-count");
+
+        // Cart state
+        let cart = [];
+
+        // Load cart from localStorage if available
+        if (localStorage.getItem("dentalCart")) {
+          try {
+            cart = JSON.parse(localStorage.getItem("dentalCart"));
+          } catch {
+            cart = [];
+          }
+        }
+
+        function updateCartCount() {
+          const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
+          cartCountEl.textContent = totalItems;
+        }
+
+        function saveCart() {
+          localStorage.setItem("dentalCart", JSON.stringify(cart));
+        }
+
+        function addToCart(serviceId) {
+          const itemIndex = cart.findIndex((item) => item.id === serviceId);
+          if (itemIndex > -1) {
+            cart[itemIndex].quantity += 1;
+          } else {
+            cart.push({ id: serviceId, quantity: 1 });
+          }
+          saveCart();
+          updateCartCount();
+          alert(
+            `Услуга "${
+              services.find((s) => s.id === serviceId).title
+            }" добавлена в корзину.`
+          );
+        }
+
+        function createCard(service) {
+          const card = document.createElement("article");
+          card.className = "catalog__card";
+          card.setAttribute("tabindex", "0");
+          card.setAttribute(
+            "aria-label",
+            `${service.title}, цена ${service.price} рублей`
+          );
+
+          card.innerHTML = `
+    <h2 class="catalog__title">${service.title}</h2>
+    <p class="catalog__desc">${service.description}</p>
+    <div class="catalog__price">${service.price.toLocaleString("ru-RU")} ₽</div>
+    <button class="catalog__btn" type="button" aria-label="Добавить ${
+      service.title
+    } в корзину">Добавить в корзину</button>
+    <button class="catalog__btn catalog__btn-min" type="button">Подробнее</button>
+  `;
+
+          const addBtn = card.querySelector(".catalog__btn");
+          addBtn.addEventListener("click", () => addToCart(service.id));
+
+          const detailsBtn = card.querySelector(".catalog__btn-min");
+          detailsBtn.addEventListener("click", () => {
+            // Перенаправляем на страницу с деталями услуги
+            // Например, item1.html, item2.html и т.д.
+            window.location.href = `item${service.id}.html`;
+          });
+
+          return card;
+        }
+
+        function renderCatalog() {
+          catalogEl.innerHTML = "";
+          services.forEach((service) => {
+            catalogEl.appendChild(createCard(service));
+          });
+        }
+
+        renderCatalog();
+        updateCartCount();
+
+        // Cart icon click handler (redirect to cart page)
+        const cartIcon = document.querySelector(".header__cart");
+        cartIcon.addEventListener("click", () => {
+          window.location.href = "/cart";
+        });
+        cartIcon.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            window.location.href = "/cart";
+          }
+        });
+
+        function createCard(service) {
+          const card = document.createElement("article");
+          card.className = "catalog__card";
+          card.setAttribute("tabindex", "0");
+          card.setAttribute(
+            "aria-label",
+            `${service.title}, цена ${service.price} рублей`
+          );
+
+          card.innerHTML = `
+    <h2 class="catalog__title">${service.title}</h2>
+    <p class="catalog__desc">${service.description}</p>
+    <div class="catalog__price">${service.price.toLocaleString("ru-RU")} ₽</div>
+    <button class="catalog__btn" type="button" aria-label="Добавить ${
+      service.title
+    } в корзину">Добавить в корзину</button>
+    <button class="catalog__btn catalog__btn-min" type="button">Подробнее</button>
+  `;
+
+          const addBtn = card.querySelector(".catalog__btn");
+          addBtn.addEventListener("click", () => addToCart(service.id));
+
+          const detailsBtn = card.querySelector(".catalog__btn-min");
+          detailsBtn.addEventListener("click", () => {
+            // Перенаправляем на страницу с деталями услуги
+            // Например, item1.html, item2.html и т.д.
+            window.location.href = `item${service.id}.html`;
+          });
+
+          return card;
+        }
+      })();
+    </script>
+  </body>
+</html>

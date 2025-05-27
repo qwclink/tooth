@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Стоматология - Корзина</title>
+  <style>
+    /* Reset */
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f0f8ff;
+      color: #03045e;
+      line-height: 1.5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    a {
+      color: #0077b6;
+      text-decoration: none;
+    }
+    a:hover,
+    a:focus {
+      text-decoration: underline;
+      outline: none;
+    }
+    button {
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    /* Header */
+    .header {
+      background-color: #0077b6;
+      color: white;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .header__container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1rem 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .header__logo {
+      font-weight: 700;
+      font-size: 1.5rem;
+      user-select: none;
+    }
+    .header__nav {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+    }
+    .header__link {
+      color: white;
+      padding: 0.3rem 0.5rem;
+      border-radius: 4px;
+      transition: background-color 0.3s ease;
+    }
+    .header__link:hover,
+    .header__link:focus {
+      background-color: #023e8a;
+      outline: none;
+    }
+
+    /* Cart icon */
+    .header__cart {
+      position: relative;
+      font-size: 1.25rem;
+      cursor: pointer;
+      user-select: none;
+    }
+    .header__cart-icon {
+      font-size: 1.5rem;
+      vertical-align: middle;
+    }
+    .header__cart-count {
+      position: absolute;
+      top: -6px;
+      right: -10px;
+      background-color: #d00000;
+      color: white;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 50%;
+      min-width: 20px;
+      text-align: center;
+      user-select: none;
+    }
+
+    /* Main */
+    .main {
+      flex: 1 0 auto;
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+
+    /* Cart */
+    .cart {
+      background-color: #caf0f8;
+      border-radius: 8px;
+      padding: 1rem;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .cart__title {
+      font-size: 2rem;
+      color: #0077b6;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+    .cart__list {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1rem;
+    }
+    .cart__list th,
+    .cart__list td {
+      border: 1px solid #0077b6;
+      padding: 0.75rem 1rem;
+      text-align: center;
+      vertical-align: middle;
+    }
+    .cart__list th {
+      background-color: #90e0ef;
+      color: #023e8a;
+    }
+    .cart__item-name {
+      text-align: left;
+      font-weight: 600;
+      color: #023e8a;
+    }
+    .cart__quantity-controls {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    .cart__btn {
+      background-color: #0077b6;
+      color: white;
+      border: none;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      font-weight: 700;
+      font-size: 1rem;
+      line-height: 1;
+      user-select: none;
+      transition: background-color 0.3s ease;
+    }
+    .cart__btn:hover,
+    .cart__btn:focus {
+      background-color: #023e8a;
+      outline: none;
+    }
+    .cart__remove-btn {
+      background-color: #d00000;
+      padding: 0.25rem 0.5rem;
+    }
+    .cart__remove-btn:hover,
+    .cart__remove-btn:focus {
+      background-color: #a00000;
+      outline: none;
+    }
+    .cart__total {
+      font-size: 1.5rem;
+      font-weight: 700;
+      text-align: right;
+      color: #03045e;
+      margin-bottom: 1rem;
+    }
+    .cart__empty {
+      text-align: center;
+      font-size: 1.25rem;
+      color: #023e8a;
+      margin: 2rem 0;
+    }
+    .cart__actions {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .cart__continue {
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: #0077b6;
+      align-self: center;
+      user-select: none;
+    }
+    .cart__checkout-btn {
+      background-color: #0077b6;
+      color: white;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 6px;
+      font-weight: 700;
+      font-size: 1.1rem;
+      user-select: none;
+      transition: background-color 0.3s ease;
+      cursor: pointer;
+    }
+    .cart__checkout-btn:hover,
+    .cart__checkout-btn:focus {
+      background-color: #023e8a;
+      outline: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .cart__list th,
+      .cart__list td {
+        padding: 0.5rem;
+      }
+      .cart__quantity-controls {
+        gap: 0.25rem;
+      }
+      .cart__btn {
+        padding: 0.2rem 0.4rem;
+        font-size: 0.9rem;
+      }
+      .cart__actions {
+        flex-direction: column;
+        align-items: center;
+      }
+      .cart__continue,
+      .cart__checkout-btn {
+        width: 100%;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="header" role="banner">
+    <div class="header__container">
+      <div class="header__logo" tabindex="0"><img src="assets/img/Logo-white.png" alt=""></div>
+      <nav class="header__nav" role="navigation" aria-label="Основное меню">
+        <a href="catalog.html" class="header__link">Каталог услуг</a>
+        <a href="register.html" class="header__link">Авторизация</a>
+        <div class="header__cart" tabindex="0" aria-label="Корзина с товарами">
+          <span class="header__cart-icon" aria-hidden="true">&#128722;</span>
+          <span class="header__cart-count" id="cart-count" aria-live="polite" aria-atomic="true">0</span>
+        </div>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main" role="main" aria-labelledby="cart-title">
+    <h1 class="cart__title" id="cart-title">Ваша корзина</h1>
+    <section class="cart" aria-live="polite" aria-relevant="additions removals">
+      <table class="cart__list" id="cart-list" aria-label="Список товаров в корзине">
+        <!-- Cart items will be dynamically inserted here -->
+      </table>
+      <div class="cart__empty" id="cart-empty" hidden>Ваша корзина пуста.</div>
+      <div class="cart__total" id="cart-total" hidden>Итого: 0 ₽</div>
+      <div class="cart__actions" id="cart-actions" hidden>
+        <a href="catalog.html" class="cart__continue" aria-label="Продолжить покупки">← Продолжить покупки</a>
+        <button class="cart__checkout-btn" id="checkout-btn" aria-label="Оформить заказ">Оформить заказ</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <div class="footer__container">
+      <p>© 2025 Стоматология. Все права защищены.</p>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      // Services data - should match catalog services
+      const services = [
+        { id: 1, title: "Отбеливание зубов", price: 5000 },
+        { id: 2, title: "Имплантация", price: 25000 },
+        { id: 3, title: "Чистка зубов", price: 3000 },
+        { id: 4, title: "Лечение кариеса", price: 4000 },
+        { id: 5, title: "Удаление зуба", price: 3500 },
+        { id: 6, title: "Ортодонтия", price: 20000 },
+        { id: 7, title: "Протезирование", price: 15000 },
+        { id: 8, title: "Профилактический осмотр", price: 1000 },
+        { id: 9, title: "Фторирование", price: 1200 },
+        { id: 10, title: "Лечение десен", price: 6000 }
+      ];
+
+      const cartListEl = document.getElementById('cart-list');
+      const cartCountEl = document.getElementById('cart-count');
+      const cartTotalEl = document.getElementById('cart-total');
+      const cartEmptyEl = document.getElementById('cart-empty');
+      const cartActionsEl = document.getElementById('cart-actions');
+      const checkoutBtn = document.getElementById('checkout-btn');
+
+      let cart = [];
+
+      // Load cart from localStorage
+      function loadCart() {
+        const stored = localStorage.getItem('dentalCart');
+        if (stored) {
+          try {
+            cart = JSON.parse(stored);
+          } catch {
+            cart = [];
+          }
+        } else {
+          cart = [];
+        }
+      }
+
+      // Save cart to localStorage
+      function saveCart() {
+        localStorage.setItem('dentalCart', JSON.stringify(cart));
+      }
+
+      // Update cart count in header
+      function updateCartCount() {
+        const totalItems = cart.reduce((acc, item) => acc + item.quantity, 0);
+        cartCountEl.textContent = totalItems;
+      }
+
+      // Find service by id
+      function findService(id) {
+        return services.find(s => s.id === id);
+      }
+
+      // Render cart items table
+      function renderCart() {
+        cartListEl.innerHTML = '';
+        if (cart.length === 0) {
+          cartEmptyEl.hidden = false;
+          cartTotalEl.hidden = true;
+          cartActionsEl.hidden = true;
+          return;
+        }
+
+        cartEmptyEl.hidden = true;
+        cartTotalEl.hidden = false;
+        cartActionsEl.hidden = false;
+
+        // Table header
+        const thead = document.createElement('thead');
+        thead.innerHTML = `
+          <tr>
+            <th scope="col">Услуга</th>
+            <th scope="col">Цена за единицу</th>
+            <th scope="col">Количество</th>
+            <th scope="col">Итого</th>
+            <th scope="col">Действия</th>
+          </tr>
+        `;
+        cartListEl.appendChild(thead);
+
+        const tbody = document.createElement('tbody');
+
+        let totalPrice = 0;
+
+        cart.forEach(item => {
+          const service = findService(item.id);
+          if (!service) return;
+
+          const itemTotal = service.price * item.quantity;
+          totalPrice += itemTotal;
+
+          const tr = document.createElement('tr');
+          tr.innerHTML = `
+            <td class="cart__item-name">${service.title}</td>
+            <td>${service.price.toLocaleString('ru-RU')} ₽</td>
+            <td>
+              <div class="cart__quantity-controls" role="group" aria-label="Управление количеством услуги ${service.title}">
+                <button class="cart__btn cart__btn--decrease" aria-label="Уменьшить количество">−</button>
+                <span aria-live="polite" aria-atomic="true">${item.quantity}</span>
+                <button class="cart__btn cart__btn--increase" aria-label="Увеличить количество">+</button>
+              </div>
+            </td>
+            <td>${itemTotal.toLocaleString('ru-RU')} ₽</td>
+            <td>
+              <button class="cart__btn cart__remove-btn" aria-label="Удалить услугу ${service.title} из корзины">Удалить</button>
+            </td>
+          `;
+
+          // Quantity buttons
+          const btnDecrease = tr.querySelector('.cart__btn--decrease');
+          const btnIncrease = tr.querySelector('.cart__btn--increase');
+          const quantitySpan = tr.querySelector('td:nth-child(3) span');
+
+          btnDecrease.addEventListener('click', () => {
+            if (item.quantity > 1) {
+              item.quantity--;
+            } else {
+              // Remove item if quantity would go below 1
+              cart = cart.filter(ci => ci.id !== item.id);
+            }
+            saveCart();
+            updateCartCount();
+            renderCart();
+          });
+
+          btnIncrease.addEventListener('click', () => {
+            item.quantity++;
+            saveCart();
+            updateCartCount();
+            renderCart();
+          });
+
+          // Remove button
+          const btnRemove = tr.querySelector('.cart__remove-btn');
+          btnRemove.addEventListener('click', () => {
+            cart = cart.filter(ci => ci.id !== item.id);
+            saveCart();
+            updateCartCount();
+            renderCart();
+          });
+
+          tbody.appendChild(tr);
+        });
+
+        cartListEl.appendChild(tbody);
+
+        cartTotalEl.textContent = `Итого: ${totalPrice.toLocaleString('ru-RU')} ₽`;
+      }
+
+      // Checkout button handler (demo)
+      checkoutBtn.addEventListener('click', () => {
+        if (cart.length === 0) return;
+        alert('Спасибо за заказ! (Это демонстрация, реальная обработка заказа не реализована)');
+        cart = [];
+        saveCart();
+        updateCartCount();
+        renderCart();
+      });
+
+      // Initialize
+      loadCart();
+      updateCartCount();
+      renderCart();
+    })();
+  </script>
+</body>
+</html>

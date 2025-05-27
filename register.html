@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Стоматология - Регистрация / Авторизация</title>
+  <style>
+    /* Reset */
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f0f8ff;
+      color: #03045e;
+      line-height: 1.5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    a {
+      color: #0077b6;
+      text-decoration: none;
+    }
+    a:hover,
+    a:focus {
+      text-decoration: underline;
+      outline: none;
+    }
+    button {
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    /* Container */
+    .auth-page {
+      flex: 1 0 auto;
+      max-width: 400px;
+      margin: 3rem auto;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      padding: 2rem;
+    }
+
+    /* Tabs */
+    .auth-tabs {
+      display: flex;
+      border-bottom: 2px solid #0077b6;
+      margin-bottom: 1.5rem;
+    }
+    .auth-tabs__button {
+      flex: 1;
+      padding: 0.75rem 1rem;
+      background: none;
+      border: none;
+      border-bottom: 4px solid transparent;
+      font-size: 1.25rem;
+      font-weight: 600;
+      color: #0077b6;
+      transition: border-color 0.3s ease;
+      user-select: none;
+    }
+    .auth-tabs__button[aria-selected="true"] {
+      border-color: #0077b6;
+      font-weight: 700;
+    }
+    .auth-tabs__button:focus {
+      outline: 2px solid #90e0ef;
+      outline-offset: 2px;
+    }
+
+    /* Forms */
+    #auth-title {
+      text-align: center;
+    }
+    form {
+      display: none;
+      flex-direction: column;
+      gap: 1rem;
+    }
+    form[aria-hidden="false"] {
+      display: flex;
+    }
+
+    .form__group {
+      display: flex;
+      flex-direction: column;
+    }
+    label {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+      color: #023e8a;
+      text-align: center;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="password"] {
+      padding: 0.5rem;
+      font-size: 1rem;
+      border-radius: 4px;
+      border: 1px solid #0077b6;
+      color: #03045e;
+      transition: border-color 0.3s ease;
+      width: 100%;
+    }
+    input[type="text"]:focus,
+    input[type="email"]:focus,
+    input[type="password"]:focus {
+      outline: none;
+      border-color: #023e8a;
+      box-shadow: 0 0 5px #90e0ef;
+    }
+
+    /* Password toggle */
+    .password-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+    .password-wrapper input {
+      flex: 1;
+    }
+    .password-toggle {
+      position: absolute;
+      right: 0.5rem;
+      background: none;
+      border: none;
+      color: #0077b6;
+      font-size: 0.9rem;
+      user-select: none;
+      cursor: pointer;
+      padding: 0.25rem;
+    }
+    .password-toggle:focus {
+      outline: 2px solid #90e0ef;
+      outline-offset: 2px;
+    }
+
+    /* Submit button */
+    .form__submit {
+      background-color: #0077b6;
+      color: white;
+      font-weight: 700;
+      border: none;
+      padding: 0.75rem;
+      border-radius: 6px;
+      font-size: 1.1rem;
+      transition: background-color 0.3s ease;
+    }
+    .form__submit:hover,
+    .form__submit:focus {
+      background-color: #023e8a;
+      outline: none;
+    }
+
+    /* Error messages */
+    .form__error {
+      color: #d00000;
+      font-size: 0.9rem;
+      margin-top: 0.25rem;
+      display: none;
+    }
+    .form__error.active {
+      display: block;
+    }
+
+    /* Info text */
+    .auth-info {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      text-align: center;
+      color: #0077b6;
+    }
+
+    /* Footer */
+    .footer {
+      flex-shrink: 0;
+      background-color: #0077b6;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+      user-select: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+      .auth-page {
+        margin: 2rem 1rem;
+        padding: 1.5rem;
+      }
+      .auth-tabs__button {
+        font-size: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <main class="auth-page" role="main" aria-labelledby="auth-title">
+    <h1 id="auth-title" class="visually-hidden">Войдите</h1>
+
+    <div class="auth-tabs" role="tablist" aria-label="Переключение между формами регистрации и авторизации">
+      <button class="auth-tabs__button" role="tab" aria-selected="true" aria-controls="login-panel" id="login-tab" tabindex="0">Авторизация</button>
+      <button class="auth-tabs__button" role="tab" aria-selected="false" aria-controls="register-panel" id="register-tab" tabindex="-1">Регистрация</button>
+    </div>
+
+    <!-- Login Form -->
+    <form id="login-panel" role="tabpanel" aria-labelledby="login-tab" aria-hidden="false" novalidate>
+      <div class="form__group">
+        <label for="login-email">Email</label>
+        <input type="email" id="login-email" name="email" required autocomplete="username" aria-describedby="login-email-error" />
+        <div class="form__error" id="login-email-error">Пожалуйста, введите корректный email.</div>
+      </div>
+      <div class="form__group password-wrapper">
+        <label for="login-password">Пароль</label>
+        <input type="password" id="login-password" name="password" required autocomplete="current-password" aria-describedby="login-password-error" />
+        <button type="button" class="password-toggle" aria-label="Показать пароль" aria-pressed="false" tabindex="0">Показать</button>
+        <div class="form__error" id="login-password-error">Пароль должен быть не менее 6 символов.</div>
+      </div>
+      <button type="submit" class="form__submit">Войти</button>
+      <div class="auth-info" id="login-info" role="alert" aria-live="assertive"></div>
+    </form>
+
+    <!-- Registration Form -->
+    <form id="register-panel" role="tabpanel" aria-labelledby="register-tab" aria-hidden="true" novalidate>
+      <div class="form__group">
+        <label for="register-name">Имя</label>
+        <input type="text" id="register-name" name="name" required minlength="2" maxlength="50" autocomplete="name" aria-describedby="register-name-error" />
+        <div class="form__error" id="register-name-error">Введите имя (от 2 до 50 символов).</div>
+      </div>
+      <div class="form__group">
+        <label for="register-email">Email</label>
+        <input type="email" id="register-email" name="email" required autocomplete="email" aria-describedby="register-email-error" />
+        <div class="form__error" id="register-email-error">Пожалуйста, введите корректный email.</div>
+      </div>
+      <div class="form__group password-wrapper">
+        <label for="register-password">Пароль</label>
+        <input type="password" id="register-password" name="password" required minlength="6" autocomplete="new-password" aria-describedby="register-password-error" />
+        <button type="button" class="password-toggle" aria-label="Показать пароль" aria-pressed="false" tabindex="0">Показать</button>
+        <div class="form__error" id="register-password-error">Пароль должен быть не менее 6 символов.</div>
+      </div>
+      <button type="submit" class="form__submit">Зарегистрироваться</button>
+      <div class="auth-info" id="register-info" role="alert" aria-live="assertive"></div>
+    </form>
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <div class="footer__container">
+      <p>© 2025 Стоматология. Все права защищены.</p>
+    </div>
+  </footer>
+
+  <script>
+    (function() {
+      // Tabs
+      const loginTab = document.getElementById('login-tab');
+      const registerTab = document.getElementById('register-tab');
+      const loginPanel = document.getElementById('login-panel');
+      const registerPanel = document.getElementById('register-panel');
+
+      function switchTab(selectedTab) {
+        if (selectedTab === 'login') {
+          loginTab.setAttribute('aria-selected', 'true');
+          loginTab.tabIndex = 0;
+          registerTab.setAttribute('aria-selected', 'false');
+          registerTab.tabIndex = -1;
+
+          loginPanel.setAttribute('aria-hidden', 'false');
+          registerPanel.setAttribute('aria-hidden', 'true');
+
+          loginPanel.style.display = 'flex';
+          registerPanel.style.display = 'none';
+
+          loginTab.focus();
+        } else {
+          registerTab.setAttribute('aria-selected', 'true');
+          registerTab.tabIndex = 0;
+          loginTab.setAttribute('aria-selected', 'false');
+          loginTab.tabIndex = -1;
+
+          registerPanel.setAttribute('aria-hidden', 'false');
+          loginPanel.setAttribute('aria-hidden', 'true');
+
+          registerPanel.style.display = 'flex';
+          loginPanel.style.display = 'none';
+
+          registerTab.focus();
+        }
+      }
+
+      loginTab.addEventListener('click', () => switchTab('login'));
+      registerTab.addEventListener('click', () => switchTab('register'));
+
+      // Initialize display
+      switchTab('login');
+
+      // Password toggle buttons
+      const passwordToggles = document.querySelectorAll('.password-toggle');
+      passwordToggles.forEach(toggle => {
+        toggle.addEventListener('click', () => {
+          const input = toggle.previousElementSibling;
+          if (input.type === 'password') {
+            input.type = 'text';
+            toggle.textContent = 'Скрыть';
+            toggle.setAttribute('aria-pressed', 'true');
+          } else {
+            input.type = 'password';
+            toggle.textContent = 'Показать';
+            toggle.setAttribute('aria-pressed', 'false');
+          }
+          input.focus();
+        });
+      });
+
+      // Validation helpers
+      function validateEmail(email) {
+        // Simple email regex
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return re.test(email);
+      }
+
+      // Login form
+      const loginForm = loginPanel;
+      const loginEmail = loginForm['email'];
+      const loginPassword = loginForm['password'];
+      const loginEmailError = document.getElementById('login-email-error');
+      const loginPasswordError = document.getElementById('login-password-error');
+      const loginInfo = document.getElementById('login-info');
+
+      loginForm.addEventListener('submit', e => {
+        e.preventDefault();
+        let valid = true;
+        loginInfo.textContent = '';
+
+        if (!validateEmail(loginEmail.value.trim())) {
+          loginEmailError.classList.add('active');
+          valid = false;
+        } else {
+          loginEmailError.classList.remove('active');
+        }
+
+        if (loginPassword.value.length < 6) {
+          loginPasswordError.classList.add('active');
+          valid = false;
+        } else {
+          loginPasswordError.classList.remove('active');
+        }
+
+        if (valid) {
+          // Simulate login success
+          loginInfo.style.color = 'green';
+          loginInfo.textContent = 'Успешный вход! (Это демонстрация, реальная авторизация не реализована)';
+          loginForm.reset();
+        } else {
+          loginInfo.style.color = '#d00000';
+          loginInfo.textContent = 'Пожалуйста, исправьте ошибки в форме.';
+        }
+      });
+
+      // Registration form
+      const registerForm = registerPanel;
+      const registerName = registerForm['name'];
+      const registerEmail = registerForm['email'];
+      const registerPassword = registerForm['password'];
+      const registerNameError = document.getElementById('register-name-error');
+      const registerEmailError = document.getElementById('register-email-error');
+      const registerPasswordError = document.getElementById('register-password-error');
+      const registerInfo = document.getElementById('register-info');
+
+      registerForm.addEventListener('submit', e => {
+        e.preventDefault();
+        let valid = true;
+        registerInfo.textContent = '';
+
+        const nameVal = registerName.value.trim();
+        if (nameVal.length < 2 || nameVal.length > 50) {
+          registerNameError.classList.add('active');
+          valid = false;
+        } else {
+          registerNameError.classList.remove('active');
+        }
+
+        if (!validateEmail(registerEmail.value.trim())) {
+          registerEmailError.classList.add('active');
+          valid = false;
+        } else {
+          registerEmailError.classList.remove('active');
+        }
+
+        if (registerPassword.value.length < 6) {
+          registerPasswordError.classList.add('active');
+          valid = false;
+        } else {
+          registerPasswordError.classList.remove('active');
+        }
+
+        if (valid) {
+          // Simulate registration success
+          registerInfo.style.color = 'green';
+          registerInfo.textContent = 'Регистрация прошла успешно! (Это демонстрация, реальная регистрация не реализована)';
+          registerForm.reset();
+        } else {
+          registerInfo.style.color = '#d00000';
+          registerInfo.textContent = 'Пожалуйста, исправьте ошибки в форме.';
+        }
+      });
+    })();
+  </script>
+
+</body>
+</html>

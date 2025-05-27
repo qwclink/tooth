@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Личный кабинет - Стоматологическая клиника</title>
+  <style>
+    /* Основные стили и цветовая палитра */
+    :root {
+      --accent-color: #90caf9;
+      --bg-color: #f5f9ff;
+      --text-color: #333;
+      --card-bg: #fff;
+      --shadow-color: rgba(144, 202, 249, 0.4);
+      --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    body {
+      margin: 0;
+      background-color: var(--bg-color);
+      font-family: var(--font-family);
+      color: var(--text-color);
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+    .container {
+      max-width: 900px;
+      width: 100%;
+      background: var(--card-bg);
+      border-radius: 12px;
+      box-shadow: 0 8px 24px var(--shadow-color);
+      padding: 40px 50px;
+      box-sizing: border-box;
+      margin: 0 auto;
+    }
+    h1 {
+      color: #023e8a;
+      font-weight: 700;
+      margin-bottom: 30px;
+      text-align: center;
+      letter-spacing: 1.2px;
+    }
+    .profile-info {
+      display: flex;
+      gap: 40px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+      align-items: center;
+    }
+    .avatar {
+      flex: 0 0 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: var(--accent-color);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+      color: white;
+      font-weight: 700;
+      user-select: none;
+      box-shadow: 0 4px 15px var(--shadow-color);
+    }
+    .user-details {
+      flex: 1;
+      min-width: 220px;
+    }
+    .user-details h2 {
+      margin: 0 0 8px 0;
+      font-size: 28px;
+      font-weight: 700;
+      color: #023e8a;
+    }
+    .user-details p {
+      margin: 4px 0;
+      font-size: 16px;
+      color: #555;
+    }
+    .actions {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .btn {
+      background-color: var(--accent-color);
+      border: none;
+      color: white;
+      font-weight: 600;
+      padding: 14px 32px;
+      border-radius: 30px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      box-shadow: 0 4px 12px var(--shadow-color);
+      text-decoration: none;
+      display: inline-block;
+      user-select: none;
+    }
+    .btn:hover,
+    .btn:focus {
+      background-color: #64b5f6;
+      outline: none;
+    }
+    .section {
+      margin-bottom: 30px;
+    }
+    .section h3 {
+      color: #023e8a;
+      margin-bottom: 16px;
+      border-bottom: 2px solid var(--accent-color);
+      padding-bottom: 6px;
+      font-weight: 700;
+      letter-spacing: 0.8px;
+    }
+    .info-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      color: #444;
+      font-size: 16px;
+      line-height: 1.5;
+    }
+    .info-list li {
+      padding: 8px 0;
+      border-bottom: 1px solid #e0e7f1;
+    }
+    .info-list li:last-child {
+      border-bottom: none;
+    }
+    /* Footer */
+    footer {
+      text-align: center;
+      margin-top: 50px;
+      font-size: 14px;
+      color: #999;
+      user-select: none;
+    }
+    /* Адаптив */
+    @media (max-width: 600px) {
+      .profile-info {
+        flex-direction: column;
+        align-items: center;
+      }
+      .user-details {
+        text-align: center;
+      }
+      .btn {
+        width: 100%;
+        padding: 14px 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="container" role="main" aria-label="Личный кабинет пациента стоматологической клиники">
+    <h1>Личный кабинет</h1>
+    <section class="profile-info" aria-label="Информация о пациенте">
+      <div class="avatar" aria-hidden="true">А</div>
+      <div class="user-details">
+        <h2>Анна Иванова</h2>
+        <p><strong>Дата рождения:</strong> 15.08.1985</p>
+        <p><strong>Телефон:</strong> +7 (999) 123-45-67</p>
+        <p><strong>Email:</strong> anna.ivanova@example.com</p>
+      </div>
+    </section>
+
+    <section class="actions" aria-label="Действия пользователя">
+      <a href="basket.html" class="btn" role="button" aria-label="Перейти в корзину">Перейти в корзину 🛒</a>
+    </section>
+
+    <section class="section" aria-label="История посещений">
+      <h3>История посещений</h3>
+      <ul class="info-list">
+        <li>12.05.2025 — Профилактический осмотр и чистка зубов</li>
+        <li>10.03.2025 — Лечение кариеса, пломбирование</li>
+        <li>22.12.2024 — Консультация и рентген</li>
+      </ul>
+    </section>
+
+    <section class="section" aria-label="Ближайшая запись">
+      <h3>Ближайшая запись</h3>
+      <p>Дата: <strong>05.06.2025</strong></p>
+      <p>Время: <strong>14:30</strong></p>
+      <p>Врач: <strong>Др. Петров И.И.</strong></p>
+      <p>Кабинет: <strong>№3</strong></p>
+    </section>
+  </main>
+
+  <footer>
+    © 2025 Стоматологическая клиника. Все права защищены.
+  </footer>
+</body>
+</html>
